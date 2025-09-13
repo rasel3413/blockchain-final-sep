@@ -1,0 +1,62 @@
+# TEF-2025: Trilemma Evaluation Framework 2025
+# Configuration for normalization thresholds and pillar weights
+
+# Normalization scales for metrics (min, max values for [0,1] mapping)
+normalization:
+  tps:
+    min: 10.0      # Minimum viable TPS
+    max: 10000.0   # High-performance threshold
+  
+  p95_latency_ms:
+    min: 50.0      # Best-case latency (ms)
+    max: 5000.0    # Acceptable upper bound (ms)
+    inverse: true  # Lower is better
+  
+  finality_s:
+    min: 0.5       # Near-instant finality (s)
+    max: 7200.0    # Bitcoin-level finality (s)
+    inverse: true  # Lower is better
+  
+  energy_wh_tx:
+    min: 0.001     # Efficient PoS (Wh/tx)
+    max: 1.0       # PoW upper bound (Wh/tx)
+    inverse: true  # Lower is better
+  
+  committee_safety_epsilon:
+    min: 0.0001    # Very secure
+    max: 0.4       # High risk threshold
+    inverse: true  # Lower is better
+  
+  nakamoto_coef:
+    min: 1.0       # Single point of failure
+    max: 1000.0    # Highly decentralized
+  
+  gini:
+    min: 0.0       # Perfect equality
+    max: 1.0       # Maximum inequality
+    inverse: true  # Lower is better
+
+# Pillar weights for TBI calculation
+pillar_weights:
+  scalability: 0.25   # TPS + latency + finality
+  security: 0.30      # Committee safety
+  decentralization: 0.25  # Nakamoto + Gini
+  energy: 0.20        # Energy efficiency
+
+# Security model parameters
+security:
+  adversary_betas: [0.1, 0.2, 0.33]  # Byzantine fault ratios to analyze
+  committee_sizes: [4, 7, 10, 13, 16, 19, 22, 25, 30, 50, 100]  # For safety curves
+
+# Plotting configuration
+plots:
+  dpi: 300
+  figsize: [10, 8]
+  style: 'seaborn-v0_8'
+  colors:
+    - '#1f77b4'  # Blue
+    - '#ff7f0e'  # Orange
+    - '#2ca02c'  # Green
+    - '#d62728'  # Red
+    - '#9467bd'  # Purple
+    - '#8c564b'  # Brown

@@ -1,0 +1,7 @@
+protocol,family,scenario,tps,p95_latency_ms,finality_s,energy_wh_tx,committee_k,adversary_beta,nakamoto_coef,gini,notes,source,scalability,security,decentralization,energy,tbi
+CometBFT,BFT-PoS,LAN-4val,1200,800,1.6,0.03,4,0.2,4,0.20,"Local run example","Local",0.485,0.800,0.600,0.985,0.712
+IBFT-Besu,PoA,LAN-4val,2200,700,2.0,0.02,4,0.2,4,0.25,"Local run example","Local",0.642,0.800,0.587,0.990,0.755
+PoW-BlockSim,PoW,Sim-params,15,600000,3600,0.8,,0.33,100,0.85,"Sim steady state (10 min)","Sim/Paper",0.001,0.670,0.575,0.200,0.372
+HotStuff (paper),BFT-PoS,Paper-2024-StudyX,3000,900,2.0,0.04,7,0.2,50,0.40,"Published figure","PaperX2024",0.748,0.800,0.708,0.980,0.809
+DPoS (paper),DPoS,Paper-2023-StudyY,3500,1200,1.0,0.02,21,0.33,21,0.65,"Published figure","PaperY2023",0.853,0.670,0.427,0.990,0.737
+DAG (paper),DAG,Paper-2024-StudyZ,5000,1500,3.0,0.01,,0.33,35,0.55,"Published figure","PaperZ2024",0.892,0.670,0.535,0.995,0.772
