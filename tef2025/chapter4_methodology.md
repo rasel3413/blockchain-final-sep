@@ -37,6 +37,17 @@ The selection of consensus protocols for evaluation follows systematic criteria 
 
 **Implementation Accessibility**: Protocols with available implementations suitable for experimental evaluation or comprehensive published benchmarks.
 
+**Table 4.1: Protocol Selection Matrix**
+
+| Protocol | Family | Implementation Status | Data Source | Real-World Usage | Selection Rationale |
+|----------|--------|---------------------|-------------|------------------|-------------------|
+| CometBFT | BFT-PoS | Experimental | Local Testbed | Cosmos Ecosystem | Modern BFT with proven scalability |
+| IBFT-Besu | PoA | Experimental | Local Testbed | Enterprise Consortiums | Permissioned high-performance |
+| HotStuff | BFT-PoS | Literature | Academic Papers | Facebook Diem | Linear complexity breakthrough |
+| DPoS | DPoS | Literature | Production Data | EOS, Tron | High-throughput delegation model |
+| DAG | DAG | Literature | Research Studies | IOTA, Nano | Parallel processing paradigm |
+| PoW | PoW | Literature | Historical Data | Bitcoin, Ethereum | Foundational consensus mechanism |
+
 **Selected Protocols**:
 - **CometBFT (Tendermint)**: Representative BFT-PoS implementation
 - **IBFT-Besu**: Enterprise-grade PoA protocol
@@ -45,18 +56,70 @@ The selection of consensus protocols for evaluation follows systematic criteria 
 - **DAG**: Directed Acyclic Graph protocol (IOTA/Nano family)
 - **PoW**: Traditional Proof-of-Work (Bitcoin model)
 
+**Figure 4.1: Consensus Protocol Design Space Coverage**
+
+```
+Security Model
+     ↑
+  BFT|    [HotStuff]    [CometBFT]
+     |        ●             ●
+     |              [IBFT-Besu]
+     |                  ●
+ PoS |    
+     |
+ PoW |  [Bitcoin-PoW]
+     |        ●
+     |                           [DPoS]
+     |                             ●
+     |________________________[DAG]___→ Scalability
+   Low                  ●           High
+                   Coordination
+                   Complexity
+```
+
 ## 4.2 Experimental Testbed Configuration
 
 The empirical evaluation employs a controlled experimental environment designed to ensure consistent and reproducible measurements across different consensus protocols.
 
 ### 4.2.1 Hardware Infrastructure
 
-**Server Specifications**:
-- **CPU**: Intel Xeon 8-core processors @ 3.5 GHz
-- **Memory**: 16 GB DDR4 RAM
-- **Storage**: 500 GB NVMe SSD
-- **Network**: 10 Gbps Ethernet connectivity
-- **Operating System**: Ubuntu 20.04 LTS
+**Table 4.2: Experimental Testbed Specifications**
+
+| Component | Specification | Purpose | Quantity |
+|-----------|---------------|---------|----------|
+| **Servers** | Intel Xeon 8-core @ 3.5 GHz | Validator nodes | 7 units |
+| **Memory** | 16 GB DDR4 RAM | Consensus state management | Per server |
+| **Storage** | 500 GB NVMe SSD | Blockchain data storage | Per server |
+| **Network** | 10 Gbps Ethernet | Inter-validator communication | Redundant links |
+| **OS** | Ubuntu 20.04 LTS | Standardized environment | All nodes |
+
+**Figure 4.2: Network Topology Diagram**
+
+```
+┌─────────────────── WAN Testbed (40-80ms) ──────────────────┐
+│                                                            │
+│  Data Center A        Data Center B        Data Center C  │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐   │
+│  │   Node 1    │    │   Node 3    │    │   Node 5    │   │
+│  │   Node 2    │    │   Node 4    │    │   Node 6    │   │
+│  └─────────────┘    └─────────────┘    │   Node 7    │   │
+│  North America       Europe            └─────────────┘   │
+│                                        Asia-Pacific      │
+└────────────────────────────────────────────────────────────┘
+
+┌─────────────────── LAN Testbed (2-5ms) ────────────────────┐
+│                                                            │
+│              Single Data Center                            │
+│  ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐  ┌───┐        │
+│  │ 1 │──│ 2 │──│ 3 │──│ 4 │──│ 5 │──│ 6 │──│ 7 │        │
+│  └───┘  └───┘  └───┘  └───┘  └───┘  └───┘  └───┘        │
+│    │      │      │      │      │      │      │           │
+│    └──────┼──────┼──────┼──────┼──────┼──────┘           │
+│           └──────┼──────┼──────┼──────┘                  │
+│                  └──────┼──────┘                         │
+│                         └──────┘                         │
+└────────────────────────────────────────────────────────────┘
+```
 
 **Network Topology**:
 - **Local Area Network (LAN)**: 2-5 ms latency, <0.1% packet loss
@@ -65,6 +128,37 @@ The empirical evaluation employs a controlled experimental environment designed 
 - **Bandwidth**: 1 Gbps available bandwidth per connection
 
 ### 4.2.2 Validator Configurations
+
+**Table 4.3: Experimental Configuration Matrix**
+
+| Configuration | Validators | Network Type | Latency Range | Use Case Scenario | Test Scenarios |
+|---------------|------------|--------------|---------------|-------------------|----------------|
+| Small-LAN | 4 nodes | Local Area | 2-5 ms | Private Consortium | 9 test runs |
+| Small-WAN | 4 nodes | Wide Area | 40-80 ms | Regional Network | 9 test runs |
+| Medium-LAN | 7 nodes | Local Area | 2-5 ms | Industry Consortium | 9 test runs |
+| Medium-WAN | 7 nodes | Wide Area | 40-80 ms | Multi-Regional | 9 test runs |
+| Large-Sim | 21+ nodes | Simulated | Variable | Global Public | Statistical model |
+
+**Figure 4.3: Validator Configuration Scaling**
+
+```
+Security Level
+     ↑
+High │     ● Large (21+ validators)
+     │       Global public networks
+     │       High security, complex coordination
+     │
+Med  │   ● Medium (7 validators)  
+     │     Regional consortiums
+     │     Balanced security/performance
+     │
+Low  │ ● Small (4 validators)
+     │   Private networks
+     │   Fast consensus, limited security
+     │
+     └────────────────────────────────→ Network Complexity
+    Simple                           Complex
+```
 
 **Small Network Configuration**:
 - **Validator Count**: 4 nodes
@@ -178,6 +272,44 @@ For protocols without direct experimental implementation, performance data is ex
 The evaluation framework employs standardized metrics across all protocols to enable meaningful comparison and analysis.
 
 ### 4.4.1 Scalability Metrics
+
+**Table 4.4: Scalability Measurement Framework**
+
+| Metric | Formula | Measurement Method | Sampling Rate | Validation |
+|--------|---------|-------------------|---------------|------------|
+| **Throughput (TPS)** | `Total_Committed_Tx / Duration` | Transaction counter | Continuous | Cross-validator consensus |
+| **P95 Latency** | `95th_percentile(Confirm_Times)` | End-to-end timing | Per transaction | Multiple measurement points |
+| **Finality Time** | `Median(Irreversible_Time)` | Protocol-specific | Per block | Confidence level 99.9% |
+| **Block Utilization** | `Used_Space / Max_Block_Size` | Block analysis | Per block | Capacity planning |
+
+**Figure 4.4: Performance Measurement Pipeline**
+
+```
+Transaction Lifecycle Monitoring
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│ Submit ──→ Mempool ──→ Propose ──→ Consensus ──→ Commit    │
+│   │         │           │           │           │          │
+│   ▼         ▼           ▼           ▼           ▼          │
+│ T_sub     T_mem       T_prop     T_cons      T_commit      │
+│                                                             │
+│ Latency = T_commit - T_sub                                 │
+│ Finality = T_final - T_commit                              │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+Performance Data Collection Stack
+┌──────────────────┐    ┌──────────────────┐    ┌─────────────┐
+│   Application    │───▶│   Prometheus     │───▶│  Grafana    │
+│   Metrics        │    │   Time Series    │    │ Dashboard   │
+└──────────────────┘    └──────────────────┘    └─────────────┘
+         │                        │                     │
+         ▼                        ▼                     ▼
+┌──────────────────┐    ┌──────────────────┐    ┌─────────────┐
+│   Node Logs      │    │   System Stats   │    │  Analysis   │
+│   & Events       │    │   & Resources    │    │  Scripts    │
+└──────────────────┘    └──────────────────┘    └─────────────┘
+```
 
 **Throughput Measurement**:
 ```
@@ -354,6 +486,58 @@ def compute_confidence_intervals(data, confidence=0.95):
 ## 4.6 TEF-2025 Framework Implementation
 
 ### 4.6.1 Normalization Functions
+
+**Table 4.5: TEF-2025 Normalization Parameters**
+
+| Pillar | Input Metric | Normalization Function | Parameters | Rationale |
+|--------|-------------|----------------------|------------|-----------|
+| **Scalability** | TPS | `min(1.0, tps/max_tps)` | max_tps = 10,000 | Current technology upper bound |
+| **Security** | Safety Risk ε | `1.0 - ε` | ε ∈ [0, 1] | Risk inversion to security score |
+| **Decentralization** | Gini Coefficient | `1.0 - gini` | gini ∈ [0, 1] | Inequality inversion |
+| **Energy** | Wh/tx | `min(1.0, baseline/energy)` | baseline = 0.01 Wh | Efficiency reference point |
+
+**Figure 4.5: TEF-2025 Framework Architecture**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    TEF-2025 Evaluation Framework                 │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Raw Metrics                 Normalization               Scores │
+│  ┌──────────┐                ┌─────────────┐           ┌──────┐ │
+│  │   TPS    │───────────────▶│ Scalability │──────────▶│ S_sc │ │
+│  │ Latency  │                │  Function   │           │[0,1] │ │
+│  │ Finality │                └─────────────┘           └──────┘ │
+│  └──────────┘                                                   │
+│                                                                 │
+│  ┌──────────┐                ┌─────────────┐           ┌──────┐ │
+│  │Committee │───────────────▶│  Security   │──────────▶│ S_se │ │
+│  │ Safety ε │                │  Function   │           │[0,1] │ │
+│  │Nakamoto  │                └─────────────┘           └──────┘ │
+│  └──────────┘                                                   │
+│                                                                 │
+│  ┌──────────┐                ┌─────────────┐           ┌──────┐ │
+│  │   Gini   │───────────────▶│Decentraliz. │──────────▶│ S_de │ │
+│  │Validator │                │  Function   │           │[0,1] │ │
+│  │Distrib.  │                └─────────────┘           └──────┘ │
+│  └──────────┘                                                   │
+│                                                                 │
+│  ┌──────────┐                ┌─────────────┐           ┌──────┐ │
+│  │ Wh/tx    │───────────────▶│   Energy    │──────────▶│ S_en │ │
+│  │CPU Usage │                │  Function   │           │[0,1] │ │
+│  │Carbon    │                └─────────────┘           └──────┘ │
+│  └──────────┘                                                   │
+│                                                                 │
+│                              ┌─────────────┐                   │
+│                              │     TBI     │                   │
+│                              │ Calculation │                   │
+│  Weights: w_sc=0.25         │             │    Final Score    │
+│          w_se=0.30          │ Weighted    │    ┌─────────┐    │
+│          w_de=0.25    ─────▶│ Geometric   │───▶│   TBI   │    │
+│          w_en=0.20          │    Mean     │    │  [0,1]  │    │
+│                              └─────────────┘    └─────────┘    │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 **Scalability Normalization**:
 ```python
