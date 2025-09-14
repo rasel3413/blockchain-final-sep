@@ -19,23 +19,7 @@ This chapter presents the empirical evaluation of six blockchain consensus proto
 
 **Figure 5.1: Data Source Classification**
 
-```
-Data Source Reliability Matrix
-
-High ┌─────────────────────────────────────┐
-     │  ● CometBFT    ● IBFT-Besu         │ Direct Measurement
-     │   (Controlled   (Controlled        │ (Experimental)
-Rel  │    Testbed)     Testbed)           │
-iab  │                                    │
-ility│              ● PoW                 │ Historical Data
-     │               (Bitcoin)            │ (Production)
-     │                                    │
-     │  ● HotStuff   ● DPoS    ● DAG      │ Literature Data
-Low  │   (Academic)   (EOS)     (Research)│ (Published)
-     └─────────────────────────────────────┘
-     Synthetic              Real-World
-              Environment Type
-```
+![Data Source Classification](./outputs/data_source_classification.png)
 
 **Experimental Protocols (Local Testbed):**
 - CometBFT (Tendermint): BFT-PoS implementation
@@ -79,40 +63,7 @@ Low  │   (Academic)   (EOS)     (Research)│ (Published)
 
 **Figure 5.2: Protocol Performance Radar Chart**
 
-```
-                    Scalability (TPS)
-                           ↑
-                          1.0
-                           │
-    Energy        0.8 ─────┼───── 0.8        Security
-   Efficiency       ╲     │     ╱           (Safety)
-     ↖              0.6 ───┼─── 0.6             ↗
-       ╲                   │                 ╱
-        ╲            0.4 ───┼─── 0.4         ╱
-         ╲                 │               ╱
-          ╲          0.2 ───┼─── 0.2       ╱
-           ╲               │             ╱
-            ╲        0.0 ───┼─── 0.0     ╱
-             ╲             │           ╱
-              ╲            │          ╱
-               ╲           │         ╱
-                ╲          │        ╱
-                 ╲         │       ╱
-                  ╲        │      ╱
-                   ╲       │     ╱
-                    ╲      │    ╱
-                     ╲     │   ╱
-                      ╲    │  ╱
-                       ╲   │ ╱
-                        ╲  │╱
-    Decentralization ────────────► 
-    (Distribution)
-
-Legend:
-●───● HotStuff (TBI: 0.809)    ◆───◆ DAG (TBI: 0.772)
-○───○ IBFT-Besu (TBI: 0.755)   ▲───▲ DPoS (TBI: 0.737)
-□───□ CometBFT (TBI: 0.712)    ×───× PoW (TBI: 0.372)
-```
+![Protocol Performance Radar Chart](./outputs/protocol_performance_radar.png)
 
 ### 5.2.1 CometBFT (BFT-PoS)
 
@@ -254,39 +205,7 @@ Traditional PoW protocols demonstrate strong decentralization and security prope
 
 **Figure 5.3: Performance Distribution by Protocol Family**
 
-```
-TBI Score Distribution Across Families
-
-1.0 ┌─────────────────────────────────────────────────────────┐
-    │                                                         │
-0.9 │                                                         │
-    │                                                         │
-0.8 │     ●HotStuff                   ◆DAG                    │
-    │    ╱ ╲                         ╱   ╲                    │
-0.7 │   ╱   ╲ CometBFT●    ○IBFT     ╱     ╲ ▲DPoS            │
-    │  ╱     ╲       ╱ ╲   ╱ ╲      ╱       ╲╱ ╲              │
-0.6 │ ╱       ╲     ╱   ╲ ╱   ╲    ╱         ╲  ╲             │
-    │╱         ╲   ╱     ╲╱     ╲  ╱           ╲  ╲            │
-0.5 │           ╲ ╱       ╲      ╲╱             ╲  ╲           │
-    │            ╲╱         ╲      ╲             ╲  ╲          │
-0.4 │             ╲          ╲      ╲             ╲  ╲  ×PoW   │
-    │              ╲          ╲      ╲             ╲  ╲ ╱ ╲    │
-0.3 │               ╲          ╲      ╲             ╲  ╲╱   ╲   │
-    │                ╲          ╲      ╲             ╲   ╲   ╲  │
-0.2 │                 ╲          ╲      ╲             ╲   ╲   ╲ │
-    │                  ╲          ╲      ╲             ╲   ╲   ╲│
-0.1 │                   ╲          ╲      ╲             ╲   ╲   ╲
-    │                    ╲          ╲      ╲             ╲   ╲   ╲
-0.0 └─────────────────────────────────────────────────────────┘
-    BFT-PoS     PoA      DAG      DPoS      PoW
-
-Performance Characteristic Patterns:
-BFT-PoS: High security, balanced performance
-PoA:     High throughput, controlled access
-DAG:     Maximum scalability, probabilistic finality
-DPoS:    High performance, delegation concerns
-PoW:     Strong decentralization, scalability limited
-```
+![Performance Distribution by Protocol Family](./outputs/performance_distribution.png)
 
 ### 5.3.1 Performance Distribution
 
@@ -348,63 +267,7 @@ PoW:     Strong decentralization, scalability limited
 
 **Figure 5.4: Pillar Trade-off Analysis**
 
-```
-Scalability vs. Security Trade-off
-1.0 ┌─────────────────────────────────────────┐
-    │                                         │
-0.9 │                                         │
-    │                     ●HotStuff          │
-0.8 │ Security            ●CometBFT ○IBFT     │
-    │                                         │
-0.7 │              ◆DAG ▲DPoS                 │
-    │                                         │
-0.6 │                                         │
-    │                              ×PoW      │
-0.5 │                                         │
-    └─────────────────────────────────────────┘
-   0.0   0.2   0.4   0.6   0.8   1.0
-                Scalability
-
-Energy vs. Scalability Efficiency
-1.0 ┌─────────────────────────────────────────┐
-    │ ◆DAG                                    │
-0.9 │ ○IBFT ▲DPoS                             │
-    │ ●CometBFT                               │
-0.8 │ ●HotStuff                               │
-    │                                         │
-0.7 │                                         │
-    │                                         │
-0.6 │                                         │
-    │                                         │
-0.5 │                                         │
-    │                                         │
-0.4 │                                         │
-    │                                         │
-0.3 │                                         │
-    │                                         │
-0.2 │                              ×PoW      │
-    │                                         │
-0.1 │                                         │
-    └─────────────────────────────────────────┘
-   0.0   0.2   0.4   0.6   0.8   1.0
-                Scalability
-
-Security vs. Decentralization Alignment  
-1.0 ┌─────────────────────────────────────────┐
-    │                                         │
-0.9 │                                         │
-    │                     ●HotStuff          │
-0.8 │ Security            ●CometBFT ○IBFT     │
-    │                                         │
-0.7 │              ◆DAG ▲DPoS      ×PoW      │
-    │                                         │
-0.6 │                                         │
-    │                                         │
-0.5 │                                         │
-    └─────────────────────────────────────────┘
-   0.0   0.2   0.4   0.6   0.8   1.0
-              Decentralization
-```
+![Pillar Trade-off Analysis](./outputs/pillar_tradeoff_analysis.png)
 
 **Scalability vs. Security:**
 - Correlation coefficient: -0.72
@@ -467,45 +330,7 @@ The TBI distribution reveals clear performance tiers:
 
 **Figure 5.5: Energy Efficiency Comparison**
 
-```
-Energy Consumption per Transaction (Log Scale)
-
-1.0  ┌─────────────────────────────────────────┐ PoW (0.8 Wh/tx)
-     │                                    ×    │ 
-     │                                         │ 80x Gap
-0.1  │                                         │
-     │                                         │
-     │                                         │
-0.01 │ ◆ ○ ▲ ● ●                              │ Modern Protocols
-     │ DAG IBFT DPoS CometBFT HotStuff        │ (0.01-0.04 Wh/tx)
-     │                                         │
-     └─────────────────────────────────────────┘
-        Energy Efficiency Champions
-
-Annual Carbon Footprint Projection (Vehicle Equivalents)
-
-4000 ┌─────────────────────────────────────────┐
-     │                                         │
-3500 │                              ×PoW      │ 3,500 vehicles
-     │                                         │
-3000 │                                         │
-     │                                         │
-2500 │                                         │
-     │                                         │
-2000 │                                         │
-     │                                         │
-1500 │                                         │
-     │                                         │
-1000 │                                         │
-     │                                         │
- 500 │                                         │
-     │                                         │
-   0 │ ◆   ○▲     ●      ●                    │
-     │ DAG IBFT  CMT   HotStuff               │ <20 vehicles
-     │ 4   8,8   12     17                    │
-     └─────────────────────────────────────────┘
-        Sustainable Blockchain Future
-```
+![Energy Efficiency Comparison](./outputs/energy_efficiency_comparison.png)
 
 ### 5.5.1 Energy Consumption Spectrum
 
@@ -548,49 +373,7 @@ Annual Carbon Footprint Projection (Vehicle Equivalents)
 
 **Figure 5.6: Committee Safety Risk Curves**
 
-```
-Safety Risk vs. Committee Size
-
-Risk (ε)
-0.10 ┌─────────────────────────────────────────┐
-     │                                         │
-     │ β = 0.33 (Strong Adversary)             │
-0.09 │     ×                                   │
-     │                                         │
-0.08 │                                         │
-     │                                         │
-0.07 │                                         │
-     │                                         │
-0.06 │                                         │
-     │                                         │
-0.05 │                                         │
-     │        ×                                │
-0.04 │                                         │
-     │ β = 0.2 (Realistic)     ×               │
-0.03 │     ×                                   │
-     │                                         │
-0.02 │                                         │
-     │        ×                                │
-0.01 │                           ×             │
-     │ β = 0.1 (Weak)                    ×     │
-0.00 │     ×     ×     ×     ×     ×     ×     │
-     └─────────────────────────────────────────┘
-      4     7    10    13    16    19    22
-              Committee Size (k)
-
-Security Threshold Guidelines
-
-Exponential Risk Reduction Pattern:
-- Doubling committee size → ~75% risk reduction
-- Adding 3 validators → ~90% risk reduction  
-- 10+ validators → <1% risk for β ≤ 0.2
-
-Risk Categories:
-● Low Risk:     ε < 0.01% (1 in 10,000)
-● Medium Risk:  0.01% ≤ ε < 1%  
-● High Risk:    1% ≤ ε < 5%
-● Extreme Risk: ε ≥ 5%
-```
+![Committee Safety Risk Curves](./outputs/committee_safety_curves.png)
 
 ### 5.6.1 Safety Risk vs. Committee Size
 
@@ -633,44 +416,7 @@ Risk Categories:
 
 **Figure 5.7: Bootstrap Analysis Results**
 
-```
-TBI Score Distribution (1,000 Bootstrap Samples)
-
-HotStuff (Mean: 0.809)
-  0.79  0.80  0.81  0.82
-    ├─────●─────┤         95% CI: [0.801, 0.817]
-      ████████████
-
-DAG (Mean: 0.772)  
-  0.76  0.77  0.78  0.79
-    ├─────●─────┤         95% CI: [0.765, 0.779]
-      ████████████
-
-IBFT-Besu (Mean: 0.755)
-  0.74  0.75  0.76  0.77
-    ├─────●─────┤         95% CI: [0.748, 0.762]
-      ████████████
-
-DPoS (Mean: 0.737)
-  0.72  0.73  0.74  0.75
-    ├─────●─────┤         95% CI: [0.729, 0.745]
-      ████████████
-
-CometBFT (Mean: 0.712)
-  0.70  0.71  0.72  0.73
-    ├─────●─────┤         95% CI: [0.705, 0.719]
-      ████████████
-
-PoW (Mean: 0.372)
-  0.36  0.37  0.38  0.39
-    ├─────●─────┤         95% CI: [0.368, 0.376]
-      ████████████
-
-Statistical Significance Testing:
-✓ All pairwise differences significant (p < 0.001)
-✓ No overlap in confidence intervals
-✓ Robust ranking order maintained
-```
+![Bootstrap Analysis Results](./outputs/bootstrap_analysis.png)
 
 ### 5.7.1 Confidence Intervals
 
@@ -708,44 +454,7 @@ Statistical Significance Testing:
 
 **Figure 5.8: Trilemma Resolution Evidence**
 
-```
-Traditional Trilemma vs. TEF-2025 Results
-
-Classic Blockchain Trilemma (Buterin 2017)
-         Security
-           ▲
-          ╱ ╲
-         ╱   ╲        "Choose Any Two"
-        ╱     ╲       - Bitcoin: Security + Decentralization
-       ╱   ?   ╲      - Traditional systems: Security + Scalability  
-      ╱         ╲     - Centralized systems: Scalability + Efficiency
-     ╱___________╲
-Decentralization ────────▶ Scalability
-                  
-TEF-2025 Four-Pillar Results (2025)
-         Security
-           ▲
-          0.8|     ●HotStuff (0.809)
-             |    ●CometBFT ○IBFT  
-          0.6|              
-             |   ◆DAG ▲DPoS
-          0.4|           ×PoW
-             |________________▶ Scalability
-           0.0   0.4   0.8
-             
-Energy Efficiency Added as Fourth Pillar:
-✓ Modern protocols achieve TBI > 0.7
-✓ Balanced performance across all dimensions
-✓ Energy efficiency enables trilemma resolution
-
-Protocol Performance Distribution:
-High Performers (TBI > 0.75): HotStuff, DAG, IBFT-Besu
-Moderate Performers (0.7-0.75): DPoS, CometBFT  
-Legacy Systems (< 0.4): PoW
-
-Conclusion: The blockchain trilemma is solvable with modern 
-consensus protocols when energy efficiency is considered.
-```
+![Trilemma Resolution Evidence](./outputs/trilemma_resolution.png)
 
 The empirical evaluation reveals several key insights:
 
